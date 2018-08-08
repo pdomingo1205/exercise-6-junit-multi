@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HorseService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">service</a> &gt; <a href="index.source.html" class="el_package">com.srv</a> &gt; <span class="el_source">HorseService.java</span></div><h1>HorseService.java</h1><pre class="source lang-java linenums">package com.srv;
+
+import java.util.stream.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.time.LocalTime;
+import com.horse.Horse;
+import org.apache.commons.lang3.RandomUtils;
+
+
+
+
+public class HorseService{
+
+
+<span class="fc" id="L16">public ArrayList&lt;String&gt; warcries = new ArrayList&lt;String&gt;() {{</span>
+<span class="fc" id="L17">	add(&quot;Let's get down to business!&quot;);</span>
+<span class="fc" id="L18">	add(&quot;¿Que habla español?&quot;);</span>
+<span class="fc" id="L19">	add(&quot;Allahu Ackbar!&quot;);</span>
+<span class="fc" id="L20">	add(null);</span>
+<span class="fc" id="L21">}};</span>
+
+
+	/*
+	public static String[] warcries = { &quot;Let's get down to business!&quot;, &quot;¿Que habla español?&quot;
+		, &quot;Allahu Ackbar!&quot;, &quot;Deus Vult!&quot;, &quot;Punitin ang cedula!&quot;,&quot;To defeat the huns!&quot;
+		, &quot;Grab a brush and put a little make up!&quot;
+		, &quot;Hide the scars to fade away the shake up!&quot;
+		, &quot;Why did you leave the keys upon the table!&quot;
+		, &quot;Here you go creating another fable!&quot;
+		, &quot;Mabuhay!&quot;
+		, &quot;Alin lamang ba sa mga iyan ang ating nakamtan...&quot;
+		, &quot;Consummatum Est.&quot;
+		, null};
+*/
+
+	//Horse currHorse;
+	String destination;
+
+<span class="fc" id="L40">	public HorseService(){</span>
+
+<span class="fc" id="L42">	}</span>
+
+	public Horse giveHorseName(Horse currHorse, Optional&lt;String&gt; horseName, Integer horseIndex){
+
+<span class="fc bfc" id="L46" title="All 2 branches covered.">		if(horseName.isPresent()){</span>
+<span class="fc" id="L47">			currHorse.setName(horseName.get());</span>
+		}
+		else{
+<span class="fc" id="L50">			currHorse.setName(&quot;Horse &quot; + (horseIndex.intValue()));</span>
+		}
+
+<span class="fc bfc" id="L53" title="All 2 branches covered.">		if(currHorse.isHealthy()){</span>
+<span class="fc" id="L54">			currHorse.setName(currHorse.getName().toUpperCase());</span>
+		}
+<span class="fc" id="L56">		return currHorse;</span>
+	}
+
+	public Horse giveWarCry(Horse currHorse, Integer index){
+		//currHorse.setWarCry();
+<span class="fc" id="L61">		Optional&lt;String&gt; warCry = Optional.ofNullable(warcries.get(index.intValue()));</span>
+<span class="fc" id="L62">		String horseName = currHorse.getName();</span>
+
+<span class="fc bfc" id="L64" title="All 2 branches covered.">		if (warCry.isPresent()){</span>
+<span class="fc" id="L65">			currHorse.setWarCry(String.format(&quot;\n %s shouts \&quot;%s\&quot; \n&quot;, horseName, warCry.get()));</span>
+		}else {
+<span class="fc" id="L67">			currHorse.setWarCry(String.format(&quot;\n %s has no warcry. \n&quot;, horseName));</span>
+		}
+
+<span class="fc" id="L70">		return currHorse;</span>
+	}
+
+	public void setDest(String newDest){
+<span class="fc" id="L74">		destination = newDest;</span>
+<span class="fc" id="L75">	}</span>
+
+	public String cry(Horse horse){
+<span class="fc" id="L78">		return horse.getWarCry();</span>
+	}
+
+	public Horse run(Horse horse, Integer tempSpeed){
+
+<span class="fc bfc" id="L83" title="All 2 branches covered.">		if(tempSpeed &gt; horse.getDistRemain().intValue()){</span>
+<span class="fc" id="L84">			tempSpeed = horse.getDistRemain().intValue();</span>
+		}
+
+<span class="fc" id="L87">		horse.setSpeed(tempSpeed.intValue());</span>
+<span class="fc" id="L88">		horse.setDistanceTravelled(horse.getDistanceTravelled().intValue() + tempSpeed.intValue());</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">		if(destination.equals(&quot;Barn&quot;) == false){</span>
+<span class="fc" id="L90">			horse.addDistBreakDown(tempSpeed.intValue());</span>
+		}
+
+<span class="fc" id="L93">		return horse;</span>
+	}
+
+	public String runMessage(Horse horse){
+		String outputText;
+<span class="fc bfc" id="L98" title="All 2 branches covered.">		if (destination.equals(&quot;Barn&quot;)) {</span>
+<span class="fc" id="L99">			outputText = (String.format(&quot; %s Distance Left to barn: %d meters &quot;, horse.getName(), horse.getDistRemain()));</span>
+		}
+		else{
+<span class="fc" id="L102">			outputText = (String.format(&quot; %s has galloped: %d meters	|	Distance Traversed: %d meters 	|	Distance Left: %d meters&quot;,</span>
+<span class="fc" id="L103">											horse.getName(), horse.getSpeed().intValue(), horse.getDistanceTravelled(), horse.getDistRemain()));</span>
+		}
+<span class="fc" id="L105">		return outputText;</span>
+	}
+
+	public Horse endRun(Horse horse){
+<span class="fc bfc" id="L109" title="All 2 branches covered.">		if (destination.equals(&quot;Barn&quot;)) {</span>
+<span class="fc" id="L110">			horse.setDistanceTravelled(0);</span>
+<span class="fc" id="L111">			System.out.println(&quot;\n&quot; + horse.getName() + &quot; has reached the Barn! \n&quot;);</span>
+		} else {
+<span class="fc" id="L113">			System.out.println(cry(horse));</span>
+		}
+<span class="fc" id="L115">		return horse;</span>
+	}
+
+	public void runToGoal(Horse horse, Integer distance, String dest){
+		Integer tempSpeed;
+<span class="fc" id="L120">		horse.setDistRemain(distance);</span>
+<span class="fc" id="L121">		destination = dest;</span>
+		do {
+
+<span class="fc" id="L124">			tempSpeed = RandomUtils.nextInt(1, 10 + 1);</span>
+<span class="fc" id="L125">			horse = run(horse, tempSpeed);</span>
+<span class="fc" id="L126">			horse.setDistRemain(distance - horse.getDistanceTravelled().intValue());</span>
+<span class="fc" id="L127">			System.out.println(runMessage(horse));</span>
+
+<span class="fc bfc" id="L129" title="All 2 branches covered.">		} while (horse.getDistanceTravelled().intValue() &lt; distance);</span>
+
+<span class="fc" id="L131">		horse = endRun(horse);</span>
+
+<span class="fc" id="L133">	}</span>
+
+	public String printBreakDown(Horse horse){
+<span class="fc" id="L136">		return (String.format(&quot; %s travelled Distances: %s = %d &quot;, horse.getName(), horse.getDistBreakDown(), horse.getDistanceTravelled().intValue()));</span>
+	}
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.1.201803210924</span></div></body></html>

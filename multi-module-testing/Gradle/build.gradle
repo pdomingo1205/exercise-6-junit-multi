@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.4'
+    }
+}
+
+allprojects  {
+  group = 'org.multi'
+  version = '1.0'
+}
+
+
+subprojects {
+    apply plugin: 'java'
+
+    repositories {
+       mavenCentral()
+       jcenter()
+    }
+
+    version = '1.0'
+
+}
+
+project(':application') {
+
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    jar {
+       manifest {
+            attributes 'Implementation-Title': 'Java Horse Race',
+            	'Implementation-Version': version,
+            	'Main-Class': 'com.app.Main'
+           }
+    }
+}
+
+ext{
+    jUnitVersion = "4.12"
+    commonsVersion = "3.7"
+
+    testDependencies = [
+        junit : "junit:junit:$jUnitVersion"
+    ]
+
+    utilityDependencies = [
+        commonsLang3 : "org.apache.commons:commons-lang3:$commonsVersion",
+    ]
+
+}

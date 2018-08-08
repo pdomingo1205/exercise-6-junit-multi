@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Implementation-Title: Java Horse Race
+Implementation-Version: 1.0
+Main-Class: com.app.Main
+
