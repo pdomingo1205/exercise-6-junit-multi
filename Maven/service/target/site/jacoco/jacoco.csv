@@ -3,5 +3,5 @@ service,com.srv,HorseService,0,267,0,16,0,45,0,18,0,10
 service,com.srv,IntegerAsker,32,0,0,0,11,0,2,0,2,0
 service,com.srv,HorseRace,87,28,0,2,18,6,5,3,5,2
 service,com.srv,HorseService.new ArrayList() {...},0,22,0,0,0,6,0,1,0,1
-service,com.srv,InputValidation.Inner,3,7,0,2,1,3,1,2,1,1
+service,com.srv,InputValidation.Inner,18,7,4,2,5,3,4,2,2,1
 service,com.srv,InputValidation,0,53,1,5,0,12,1,6,0,4

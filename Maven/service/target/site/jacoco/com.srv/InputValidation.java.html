@@ -17,26 +17,34 @@ public class InputValidation{
 			}
 <span class="fc" id="L18">			return text;</span>
     	}
+
+		public static Boolean isInRange(Integer number){
+<span class="nc" id="L22">			Boolean boolVal = true;</span>
+<span class="nc bnc" id="L23" title="All 4 branches missed.">			if(number &lt; 0 || number &gt; 20){</span>
+<span class="nc" id="L24">				boolVal = false;</span>
+			}
+<span class="nc" id="L26">			return boolVal;</span>
+		}
 	}
 
 	public static void setRange(Integer newMin, Integer newMax){
-<span class="fc" id="L23">		min = newMin;</span>
-<span class="fc" id="L24">		max = newMax;</span>
-<span class="fc" id="L25">	}</span>
+<span class="fc" id="L31">		min = newMin;</span>
+<span class="fc" id="L32">		max = newMax;</span>
+<span class="fc" id="L33">	}</span>
 
 	public static String stringInput(String text){
-<span class="fc bfc" id="L28" title="All 2 branches covered.">		if (text.isEmpty()) {</span>
-<span class="fc" id="L29">			text = null;</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">		if (text.isEmpty()) {</span>
+<span class="fc" id="L37">			text = null;</span>
 		}
-<span class="fc" id="L31">		return text;</span>
+<span class="fc" id="L39">		return text;</span>
 	}
 
 	public static Integer getBoundIntegerFromUser(IntegerAsker asker) {
-<span class="fc" id="L35">	    Integer input = asker.ask(String.format(&quot;Input a number between %s - %s&quot;, String.valueOf(min), String.valueOf(max)));</span>
-<span class="pc bpc" id="L36" title="1 of 4 branches missed.">		while (input &lt; min || input &gt; max){</span>
-<span class="fc" id="L37">			input = asker.ask(&quot;Wrong number, try again.&quot;);</span>
+<span class="fc" id="L43">	    Integer input = asker.ask(String.format(&quot;Input a number between %s - %s&quot;, String.valueOf(min), String.valueOf(max)));</span>
+<span class="pc bpc" id="L44" title="1 of 4 branches missed.">		while (input &lt; min || input &gt; max){</span>
+<span class="fc" id="L45">			input = asker.ask(&quot;Wrong number, try again.&quot;);</span>
 		}
-<span class="fc" id="L39">	    return input;</span>
+<span class="fc" id="L47">	    return input;</span>
 	}
 
 }

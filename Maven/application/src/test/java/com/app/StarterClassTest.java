@@ -62,15 +62,6 @@ public class StarterClassTest
             assertNotEquals("John", horse2.getName());
         }
 
-        public void test_horseCreator(){
-            Horse horse2 = new Horse();
-            PowerMockito.mockStatic(StarterClass.class);
-            when(StarterClass.getInteger()).thenReturn(10);
-
-            StarterClassImplementation starter = new StarterClassImplementation();
-                starter.start();
-
-        }
 
 
         }
