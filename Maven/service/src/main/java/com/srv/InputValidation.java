@@ -17,6 +17,14 @@ public class InputValidation{
 			}
 			return text;
     	}
+
+		public static Boolean isInRange(Integer number){
+			Boolean boolVal = true;
+			if(number < 0 || number > 20){
+				boolVal = false
+			}
+			return boolVal;
+		}
 	}
 
 	public static void setRange(Integer newMin, Integer newMax){
